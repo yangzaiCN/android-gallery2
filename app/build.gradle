@@ -1,0 +1,41 @@
+apply plugin: 'com.android.application'
+
+android {
+
+    useLibrary 'org.apache.http.legacy'
+
+    signingConfigs {
+
+        release {
+            try {
+                storeFile file("myapp.keystore")
+                storePassword KEYSTORE_PASSWORD
+                keyAlias "weizhuo"
+                keyPassword KEY_PASSWORD
+            }
+            catch (ex) {
+                throw new InvalidUserDataException("You should define KEYSTORE_PASSWORD and KEY_PASSWORD in gradle.properties.")
+            }
+        }
+    }
+    compileSdkVersion 24
+    buildToolsVersion "25.0.1"
+    defaultConfig {
+        applicationId "com.kikikeji.weizhuo"
+        minSdkVersion 16
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0.0"
+    }
+    buildTypes {
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+}
